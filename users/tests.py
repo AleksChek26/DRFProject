@@ -17,10 +17,10 @@ class UsersAPITests(APITestCase):
             'password': 'testpass123',
             'role': 'student'
         }
-        response = self.client.post('/api/users/register/', data)
+        response = self.client.post('/users/register/', data)
         self.assertEqual(response.status_code, status.HTTP_201_CREATED)
 
     def test_login(self):
         data = {'email': 'admin@example.com', 'password': 'admin'}
-        response = self.client.post('/api/users/login/', data)
+        response = self.client.post('/users/login/', data)
         self.assertEqual(response.status_code, status.HTTP_200_OK)
