@@ -8,9 +8,9 @@ User = get_user_model()
 class CoursesAPITests(APITestCase):
     def setUp(self):
         self.client = APIClient()
-        self.admin = User.objects.create_superuser(username='admin', password='admin')
-        self.instructor = User.objects.create_user(username='instructor', password='instructor')
-        self.student = User.objects.create_user(username='student', password='student')
+        self.admin = User.objects.create_superuser(username='admin', email='admin@example.com', password='admin')
+        self.instructor = User.objects.create_user(username='instructor', email='instructor@example.com', password='instructor')
+        self.student = User.objects.create_user(username='student', email='student@example.com', password='student')
         self.section = Section.objects.create(title='Test Section', owner=self.instructor)
         self.material = Material.objects.create(
             title='Test Material',
@@ -22,5 +22,5 @@ class CoursesAPITests(APITestCase):
     def test_section_crud(self):
         self.client.force_authenticate(user=self.instructor)
         data = {'title': 'New Section'}
-        response = self.client.post('/api/courses/sections/', data)
+        response = self.client.post('/courses/sections/', data)
         self.assertEqual(response.status_code, status.HTTP_201_CREATED)
